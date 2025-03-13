@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../../Models/login_model.dart';
 import '../../../Shared/Network/end_points.dart';
 import '../../../Shared/Network/remote/dio_helper.dart';
 
@@ -11,6 +12,7 @@ part 'login_state.dart';
 class LoginCubit extends Cubit<LoginState> {
   IconData suffix = Icons.visibility_off_outlined;
   bool isPassword = true;
+  LogInModel? loginModel;
 
 
   LoginCubit() : super(LoginInitial());
@@ -23,13 +25,10 @@ class LoginCubit extends Cubit<LoginState> {
       data: {'email': email, 'password': password},
     ).then(
             (value){
-              print(value);
-              emit(LoginSuccess());
-              // if(value.data['status']){
-              //   emit(LoginSuccess());
-              // }else{
-              //   emit(LoginFailure(value.data['message']));
-              // }
+               print(value.data);
+               loginModel = LogInModel.fromJson(value.data);
+               emit(LoginSuccess(loginModel!));
+
             }).catchError((error) {
               print(error.toString());
               emit(LoginFailure(error.toString()));

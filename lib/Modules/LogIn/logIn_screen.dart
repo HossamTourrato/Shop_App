@@ -21,7 +21,15 @@ class LoginScreen extends StatelessWidget {
       create: (context) => LoginCubit(),
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
-          // TODO: implement listener
+
+          if (state is LoginSuccess){
+            if (state.login.status == true){
+              print(state.login.message);
+              print(state.login.data!.token);
+            }else{
+              print(state.login.message);
+            }
+          }
         },
         builder: (context, state) {
           var cubit = LoginCubit.get(context);
@@ -91,7 +99,7 @@ class LoginScreen extends StatelessWidget {
                           condition: state is! LoginLoading,
                           builder: (context) => defaultButton(
                             function: (){
-
+                              FocusScope.of(context).unfocus();
                               if (formKey.currentState!.validate())
                               {
                                 LoginCubit.get(context).userLogin(
