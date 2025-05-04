@@ -105,6 +105,7 @@ class LoginScreen extends StatelessWidget {
                                 LoginCubit.get(context).userLogin(
                                   email: emailController.text,
                                   password: passwordController.text,
+                                  context: context,
                                 );
                               }
                             },

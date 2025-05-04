@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 
+import '../../../HomeLayout/shopApp_layout.dart';
 import '../../../Models/login_model.dart';
+import '../../../Shared/Components/components.dart';
 import '../../../Shared/Network/end_points.dart';
 import '../../../Shared/Network/remote/dio_helper.dart';
 
@@ -17,8 +19,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   LoginCubit() : super(LoginInitial());
   static LoginCubit get(context) => BlocProvider.of(context);
-
-  void userLogin({required String email, required String password}) {
+  void userLogin({required String email, required String password, required context}) {
     emit(LoginLoading());
     DioHelper.postData(
       url: LOGIN,
@@ -28,11 +29,13 @@ class LoginCubit extends Cubit<LoginState> {
                print(value.data);
                loginModel = LogInModel.fromJson(value.data);
                emit(LoginSuccess(loginModel!));
+               navigatePushAndFinish(context,HomeLayout());
 
             }).catchError((error) {
               print(error.toString());
               emit(LoginFailure(error.toString()));
     });
+
   }
   void changePasswordVisibility() {
     isPassword = !isPassword;

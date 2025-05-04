@@ -5,10 +5,10 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../Modules/OnBoarding/onBoarding_screen.dart';
 
-void navigatePushAndFinish(context, widget) {
+void navigatePushAndFinish(context,   widget) {
   Navigator.pushAndRemoveUntil(
     context,
-    MaterialPageRoute(builder: (context) => widget),
+    MaterialPageRoute(builder: (context) =>  widget),
     (route) => false,
   );
 }
@@ -154,3 +154,6 @@ Widget appBarActionButton(BuildContext context, Widget widget) => Padding(
     child: Text("SKIP", style: TextStyle(color: Colors.white, fontSize: 13.8)),
   ),
 );
+
+
+
